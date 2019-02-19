@@ -1,0 +1,19 @@
+{
+    "compileOnSave": false,
+    "buildOnSave": false,
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "lib": ["es2015", "dom"],
+        "removeComments": false,
+        "experimentalDecorators": true,
+        "noEmitHelpers": true,
+        "importHelpers": true,
+        "noImplicitAny": false
+    },
+    "awesomeTypescriptLoaderOptions": {
+        "usePrecompiledFiles": false
+    }
+}

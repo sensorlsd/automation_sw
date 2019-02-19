@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QA Automation Link builder</title>
+</head>
+<body>
+<form id="form">
+    <h2>Link builder to run QA Autotest</h2>
+    <p>Game URL (can be get from cd2 real/fun mode, just copy/paste link from cd2):<br>
+        <input id="inputGameUrl" size='100' type="text" name="gameUrl" value="http://gc.gaming.skywindgroup.com/csi/latest/index.html"><Br>
+    <p>Test server URL (without 'http://'):<br>
+        <input id="inputTestServerUrl" size='100' type="text" name="serverUrl" value="10.37.21.51:1337"><br>
+    <p>Test Id:<br>
+        <input id="inputTestId" size='100' type="text" name="serverUrl" value="3"><br>
+    <p><input type="submit" id="runTest" name="startTest" value="RunTest"><br>
+</form>
+<script>
+    const buttonRunTest = document.getElementById('runTest');
+    const inputGameUrl = document.getElementById('inputGameUrl');
+    const inputTestServerUrl = document.getElementById('inputTestServerUrl');
+    const inputTestId = document.getElementById('inputTestId');
+
+    const autotestUrl = 'http://gc.gaming.skywindgroup.com/autotestclientframework/latest/index.html';
+
+    buttonRunTest.onclick = (event) => {
+        let firstSplitter = '?';
+        if (inputGameUrl.value.indexOf(firstSplitter) !== -1) {
+            firstSplitter = '&';
+        }
+        const testUrl = `${decodeURIComponent(inputGameUrl.value)}${firstSplitter}testId=${inputTestId.value}&testUrl=${inputTestServerUrl.value}`;
+        const resultLink = `${autotestUrl}?gameURL=${encodeURIComponent(testUrl)}`;
+        console.log(resultLink);
+        window.open(resultLink);
+    };
+</script>
+</body>
+</html>

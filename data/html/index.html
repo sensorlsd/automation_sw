@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QA Automation</title>
+    <script>
+        function onLoaded() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const gameURL = urlParams.get("gameURL");
+            window.gameURL = gameURL;
+            const iFrame = document.createElement("iframe");
+            iFrame.setAttribute("src", gameURL);
+            iFrame.setAttribute("onLoad", "injectJS()");
+            iFrame.setAttribute("frameborder", 0);
+            iFrame.setAttribute("name", "gameIFrame");
+
+            iFrame.style.width = "99%";
+            iFrame.style.height = "99%";
+            iFrame.style.position = "absolute";
+            iFrame.style.border = "none";
+            document.body.appendChild(iFrame);
+        }
+
+        function injectJS() {
+            console.log(gameURL);
+            const iFrameHead = window.frames["gameIFrame"].document.getElementsByTagName("head")[0];
+            const atScript = document.createElement('script');
+
+            const atScriptUrlParts = window.location.href.split('?')[0].split('/');
+            atScriptUrlParts[atScriptUrlParts.length - 1] = 'autotest.js';
+            const atScriptUrl = atScriptUrlParts.join('/');
+            console.log(`AT URL: ${atScriptUrl}`);
+
+            atScript.type = 'text/javascript';
+            atScript.src = atScriptUrl;
+            iFrameHead.appendChild(atScript);
+        }
+    </script>
+</head>
+<body onload="onLoaded()">
+</body>
+</html>
